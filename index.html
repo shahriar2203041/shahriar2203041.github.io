@@ -7,14 +7,18 @@
     <title>Shahriar Kamal | Electrical Engineering Portfolio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
         :root {
-            --primary-color: #00bcd4; /* A vibrant tech cyan */
-            --dark-bg: #121212;
-            --card-bg: #1e1e1e;
+            /* New Amethyst & Neon Theme */
+            --primary-color: #9f78ff; /* A vibrant violet */
+            --gradient-text: linear-gradient(90deg, #9f78ff, #f372b4); /* Violet to Pink */
+            --dark-bg: #10101a; /* Deeper space blue/black */
+            --card-bg: rgba(29, 29, 47, 0.5); /* Semi-transparent card bg */
+            --glass-border: rgba(255, 255, 255, 0.1);
             --text-color: #e0e0e0;
             --text-secondary: #a0a0a0;
-            --border-color: #333;
         }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
@@ -26,63 +30,98 @@
         .container { max-width: 1200px; margin: auto; padding: 0 2rem; }
         h1, h2, h3 { font-weight: 600; color: #fff; }
         h1 { font-size: 3.5rem; }
-        h2 { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; text-transform: uppercase; letter-spacing: 2px; position: relative; }
-        h2::after { content: ''; display: block; width: 80px; height: 4px; background: var(--primary-color); margin: 0.5rem auto 0; border-radius: 2px; }
-        section { padding: 5rem 0; }
+        h2 { 
+            font-size: 2.8rem; text-align: center; margin-bottom: 3rem; 
+            font-weight: 700;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        section { padding: 6rem 0; overflow-x: hidden; }
         a { color: var(--primary-color); text-decoration: none; }
+
+        /* --- Scroll Animation --- */
+        .hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* --- Navigation --- */
         .navbar {
-            position: fixed; width: 100%; background: rgba(18, 18, 18, 0.85);
-            backdrop-filter: blur(10px); padding: 1rem 0; z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
+            position: fixed; width: 100%; background: rgba(16, 16, 26, 0.7);
+            backdrop-filter: blur(12px); padding: 1rem 0; z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
         }
         .navbar .container { display: flex; justify-content: space-between; align-items: center; }
         .navbar .logo { font-size: 1.6rem; font-weight: 700; color: #fff; }
         .navbar ul { display: flex; list-style: none; }
-        .navbar ul li a { color: var(--text-color); padding: 0.5rem 1rem; transition: color 0.3s; }
+        .navbar ul li a { color: var(--text-color); padding: 0.5rem 1rem; transition: color 0.3s; font-weight: 500; }
         .navbar ul li a:hover { color: var(--primary-color); }
         
         /* --- Hero Section --- */
-        .hero { height: 100vh; display: flex; align-items: center; text-align: center; }
-        .hero-content h1 { margin-bottom: 1rem; }
-        .hero-content .motto { font-size: 1.5rem; font-weight: 300; color: var(--primary-color); margin-bottom: 2rem; height: 2.2em; }
-        .typing-cursor { border-right: 2px solid var(--primary-color); animation: blink 1s step-end infinite; }
+        .hero { min-height: 100vh; display: flex; align-items: center; text-align: center; }
+        .hero-content h1 {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        .hero-content .motto { font-size: 1.5rem; font-weight: 300; color: #fff; margin-bottom: 2.5rem; height: 2.2em; }
+        .typing-cursor { border-right: 3px solid var(--primary-color); animation: blink 1s step-end infinite; }
         @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--primary-color); } }
         .btn {
-            display: inline-block; padding: 0.8rem 2rem; background: var(--primary-color);
-            color: #121212; border-radius: 5px; font-weight: 600; margin: 0.5rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease; border: 2px solid var(--primary-color);
+            display: inline-block; padding: 0.9rem 2.2rem; background: var(--gradient-text);
+            color: #fff; border-radius: 8px; font-weight: 600; margin: 0.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; border: none;
         }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3); }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(159, 120, 255, 0.4); }
 
-        /* --- Grid Layout for Cards --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        /* --- Upgraded Card Design --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
         .card {
-            background: var(--card-bg); border-radius: 10px; overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex; flex-direction: column;
         }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0, 188, 212, 0.2); }
+        .card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--primary-color);
+        }
         .card-image { width: 100%; height: 220px; object-fit: cover; }
-        .card-content { padding: 1.5rem; }
-        .card-content h3 { margin-bottom: 0.5rem; color: var(--primary-color); }
+        .card-content { padding: 1.5rem; flex-grow: 1; }
+        .card-content h3 { margin-bottom: 0.5rem; color: #fff; }
+        .card-content em { font-size: 0.9rem; color: var(--text-secondary); }
 
         /* --- Project Card Specifics --- */
         .project-card { cursor: pointer; }
 
         /* --- Education Section --- */
-        .education-item { border-left: 3px solid var(--primary-color); padding-left: 1.5rem; margin-bottom: 2rem; }
+        .education-item { border-left: 3px solid var(--primary-color); padding-left: 1.5rem; margin-bottom: 2rem; position: relative; }
+        .education-item::before {
+            content: ''; position: absolute; left: -9px; top: 5px; width: 15px; height: 15px;
+            background-color: var(--primary-color); border-radius: 50%; border: 3px solid var(--dark-bg);
+        }
         .education-item h3 { color: #fff; }
         .education-item p { margin-bottom: 0.2rem; }
 
-        /* --- Achievements Section --- */
-        #achievements .grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-        #achievements .card { text-align: center; }
-
         /* --- Skills Section --- */
         .skills-container { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
-        .skill-tag { background: var(--card-bg); padding: 0.7rem 1.2rem; border-radius: 20px; font-weight: 500; }
+        .skill-tag {
+            background: var(--card-bg); border: 1px solid var(--glass-border);
+            padding: 0.7rem 1.2rem; border-radius: 8px; font-weight: 500;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .skill-tag:hover { background-color: var(--primary-color); color: #10101a; transform: scale(1.05); }
 
         /* --- Modal Gallery --- */
         .modal {
@@ -91,7 +130,7 @@
             justify-content: center; align-items: center;
         }
         .modal-content { position: relative; max-width: 90%; max-height: 85vh; }
-        .modal-content video, .modal-content img { width: auto; height: auto; max-width: 100%; max-height: 85vh; display: block; }
+        .modal-content video, .modal-content img { width: auto; height: auto; max-width: 100%; max-height: 85vh; display: block; border-radius: 5px; }
         .close-btn { position: absolute; top: 15px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; }
         .nav-arrow {
             cursor: pointer; position: absolute; top: 50%; width: auto; margin-top: -22px;
@@ -104,13 +143,12 @@
 
         /* --- Contact --- */
         #contact { text-align: center; }
-        .social-links a { font-size: 2rem; margin: 0 1rem; transition: color 0.3s; }
-        .social-links a:hover { color: var(--primary-color); }
+        .social-links a { font-size: 2rem; margin: 0 1rem; transition: color 0.3s, transform 0.3s; display: inline-block; }
+        .social-links a:hover { color: var(--primary-color); transform: scale(1.2); }
         
-        /* --- Responsive --- */
         @media(max-width: 768px) {
             h1 { font-size: 2.8rem; }
-            h2 { font-size: 2rem; }
+            h2 { font-size: 2.2rem; }
             .navbar { padding: 1rem; }
             .navbar .container { flex-direction: column; gap: 1rem; }
         }
@@ -124,7 +162,6 @@
             <a href="#" class="logo">Shahriar Kamal</a>
             <ul>
                 <li><a href="#about">About</a></li>
-                <li><a href="#education">Education</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#achievements">Achievements</a></li>
@@ -139,24 +176,24 @@
             <div class="hero-content">
                 <h1>Shahriar Kamal</h1>
                 <p class="motto"><span id="typing-text"></span><span class="typing-cursor"></span></p>
-                <a href="#projects" class="btn">View My Projects</a>
-                <a href="#contact" class="btn">Contact Me</a>
+                <a href="#projects" class="btn">Explore My Work</a>
+                <a href="#contact" class="btn">Get In Touch</a>
             </div>
         </div>
     </header>
 
     <!-- About Section -->
-    <section id="about">
+    <section id="about" class="hidden">
         <div class="container">
             <h2>About Me</h2>
-            <p style="text-align:center; max-width: 800px; margin: auto;">
+            <p style="text-align:center; max-width: 800px; margin: auto; font-size: 1.1rem;">
                 Hello! I'm Shahriar Kamal, a second-year Electrical Engineering student at KUET. My journey is driven by a deep fascination with turning complex ideas into tangible, working devices. I thrive at the intersection of hardware and software—designing circuits, laying out custom PCBs, and writing the code that gives them intelligence. Beyond the lab, I apply the same 'builder' mindset to creating communities and leading projects, believing that great technology and great teams share the principles of clear vision and strong execution.
             </p>
         </div>
     </section>
     
     <!-- Education Section -->
-    <section id="education">
+    <section id="education" class="hidden">
         <div class="container">
             <h2>Education</h2>
             <div class="education-item">
@@ -166,22 +203,37 @@
             </div>
             <div class="education-item">
                 <h3>Notre Dame College</h3>
-                <p><strong>Higher Secondary Certificate (HSC), Science</strong></p>
-                <p>Achieved GPA: 5.0 / 5.0</p>
+                <p><strong>Higher Secondary Certificate (HSC), Science</strong> | GPA: 5.0 / 5.0</p>
             </div>
              <div class="education-item">
                 <h3>Chittagong Cantonment English School and College</h3>
-                <p><strong>Secondary School Certificate (SSC), Science</strong></p>
-                <p>Achieved GPA: 5.0 / 5.0</p>
+                <p><strong>Secondary School Certificate (SSC), Science</strong> | GPA: 5.0 / 5.0</p>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects">
+    <section id="projects" class="hidden">
         <div class="container">
             <h2>Projects</h2>
             <div class="grid">
+                <!-- Project: IT Hackathon (Now an Image) -->
+                <div class="project-card" data-media-type="image" data-media-src="images/hackathon-project.jpg">
+                    <img src="images/hackathon-project.jpg" alt="AI Education Platform" class="card-image">
+                    <div class="card-content">
+                        <h3>AI-Powered Educational Platform</h3>
+                        <p>Developed for the S.N. Bose National Science Festival to make science learning accessible for visually impaired students.
+                        <br><em>Teammates: MD RABBY HOSSAIN, Abdullah Sikder</em></p>
+                    </div>
+                </div>
+                <!-- Project: TAPASTRY (Now an Image) -->
+                <div class="project-card" data-media-type="image" data-media-src="images/tapastry-project.jpg">
+                    <img src="images/tapastry-project.jpg" alt="TAPASTRY Ordering System" class="card-image">
+                    <div class="card-content">
+                        <h3>TAPASTRY: Smart Ordering System</h3>
+                        <p>An ESP32-powered, contactless ordering system using simple button taps. Ideal for cafes and kiosks.</p>
+                    </div>
+                </div>
                 <!-- Project: Drone -->
                 <div class="project-card" data-media-type="image" data-media-src="images/drone.jpg">
                     <img src="images/drone.jpg" alt="Autonomous Drone" class="card-image">
@@ -191,11 +243,6 @@
                 <div class="project-card" data-media-type="image" data-media-src="images/lfr.jpg">
                     <img src="images/lfr.jpg" alt="Line Follower Robot" class="card-image">
                     <div class="card-content"><h3>Line Follower Robot</h3><p>An intelligent robot on a custom PCB designed to autonomously navigate a path using sensor feedback.</p></div>
-                </div>
-                <!-- Project: Tinkercad -->
-                <div class="project-card" data-media-type="video" data-media-src="images/tinkercad-video.mp4">
-                    <img src="images/tinkercad-thumbnail.jpg" alt="Tinkercad Project Thumbnail" class="card-image">
-                    <div class="card-content"><h3>Tinkercad Circuit Simulation</h3><p>Complex circuit simulations and virtual prototyping of electronic systems using Tinkercad.</p></div>
                 </div>
                 <!-- Project: C Programming -->
                 <div class="project-card" data-media-type="image" data-media-src="images/c-project-1.jpg,images/c-project-2.jpg,images/c-project-3.jpg">
@@ -212,99 +259,82 @@
                     <img src="images/pesticide-1.jpg" alt="Smart Pesticide System" class="card-image">
                     <div class="card-content"><h3>Smart Pesticide Spraying System</h3><p>An IoT-based concept for targeted pesticide delivery, designed to improve efficiency and reduce waste.</p></div>
                 </div>
+                 <!-- Project: Tinkercad (Now an Image) -->
+                <div class="project-card" data-media-type="image" data-media-src="images/tinkercad-project.jpg">
+                    <img src="images/tinkercad-project.jpg" alt="Tinkercad Project" class="card-image">
+                    <div class="card-content"><h3>Tinkercad Circuit Simulation</h3><p>Complex circuit simulations and virtual prototyping of electronic systems using Tinkercad.</p></div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience">
+    <section id="experience" class="hidden">
         <div class="container">
             <h2>Experience</h2>
             <div class="grid">
                 <div class="card">
                     <img src="images/embedded-innovators.jpg" alt="Embedded Innovators" class="card-image">
-                    <div class="card-content">
-                        <h3>Embedded Systems Trainee</h3>
-                        <p><strong>Embedded Innovators KUET</strong></p>
-                        <p>Exploring new technologies, enhancing my skills, and working with an incredible team on embedded systems projects.</p>
-                    </div>
+                    <div class="card-content"><h3>Embedded Systems Trainee</h3><p><strong>Embedded Innovators KUET</strong><br>Exploring new technologies, enhancing my skills, and working with an incredible team on embedded systems projects.</p></div>
                 </div>
                 <div class="card">
                     <img src="images/eee-makers-hub.jpg" alt="EEE Makers Hub" class="card-image">
-                    <div class="card-content">
-                        <h3>Junior Executive</h3>
-                        <p><strong>EEE Makers Hub, KUET</strong></p>
-                        <p>Contributing to engineering projects, technical discussions, and knowledge-sharing initiatives in a collaborative environment.</p>
-                    </div>
+                    <div class="card-content"><h3>Junior Executive</h3><p><strong>EEE Makers Hub, KUET</strong><br>Contributing to engineering projects, technical discussions, and knowledge-sharing initiatives in a collaborative environment.</p></div>
                 </div>
                  <div class="card">
                     <img src="images/rotaract.jpg" alt="Rotaract Club" class="card-image">
-                    <div class="card-content">
-                        <h3>Vice President</h3>
-                        <p><strong>Rotaract Club of Notre Dame College</strong></p>
-                        <p>Led the organization of national-level competitions, speaker sessions, and workshops, managing teams and event logistics.</p>
-                    </div>
+                    <div class="card-content"><h3>Vice President</h3><p><strong>Rotaract Club of Notre Dame College</strong><br>Led the organization of national-level competitions, speaker sessions, and workshops, managing teams and event logistics.</p></div>
                 </div>
                  <div class="card">
                     <img src="images/poridhi.jpg" alt="Poridhir Baire" class="card-image">
-                    <div class="card-content">
-                        <h3>Co-Founder</h3>
-                        <p><strong>পরিধির বাইরে (Beyond the Horizon)</strong></p>
-                        <p>Founded and grew a large educational community, organizing events with international participation.</p>
-                    </div>
+                    <div class="card-content"><h3>Co-Founder</h3><p><strong>পরিধির বাইরে (Beyond the Horizon)</strong><br>Founded and grew a large educational community, organizing events with international participation.</p></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Achievements Section -->
-    <section id="achievements">
+    <section id="achievements" class="hidden">
         <div class="container">
             <h2>Achievements</h2>
             <div style="text-align: center; margin-bottom: 2rem;">
                 <img src="images/achievement-award.jpg" alt="Achievements" style="max-width: 150px; border-radius: 50%;">
             </div>
             <div class="grid">
-                <div class="card"><div class="card-content"><h3>2nd Prize</h3><p>Project Presentation at Science Freak</p></div></div>
-                <div class="card"><div class="card-content"><h3>2nd Runner-up</h3><p>Hassan Ali Govt. High School Science Club</p></div></div>
-                <div class="card"><div class="card-content"><h3>Best Volunteer</h3><p>Rotaract Club of Notre Dame College</p></div></div>
-                <div class="card"><div class="card-content"><h3>Campus Coordinator</h3><p>Learn-E Platform</p></div></div>
-                <div class="card"><div class="card-content"><h3>GK Champion</h3><p>Notre Dame College (NDC)</p></div></div>
-                <div class="card"><div class="card-content"><h3>The IQ Master of NDC</h3><p>Notre Dame College (NDC)</p></div></div>
+                <div class="card"><div class="card-content" style="text-align:center;"><h3>2nd Prize</h3><p>Project Presentation at Science Freak</p></div></div>
+                <div class="card"><div class="card-content" style="text-align:center;"><h3>2nd Runner-up</h3><p>Hassan Ali Govt. High School Science Club</p></div></div>
+                <div class="card"><div class="card-content" style="text-align:center;"><h3>Best Volunteer</h3><p>Rotaract Club of Notre Dame College</p></div></div>
+                <div class="card"><div class="card-content" style="text-align:center;"><h3>Campus Coordinator</h3><p>Learn-E Platform</p></div></div>
+                <div class="card"><div class="card-content" style="text-align:center;"><h3>GK Champion</h3><p>Notre Dame College (NDC)</p></div></div>
+                <div class="card"><div class="card-content" style="text-align:center;"><h3>The IQ Master of NDC</h3><p>Notre Dame College (NDC)</p></div></div>
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills">
+    <section id="skills" class="hidden">
         <div class="container">
             <h2>Skills</h2>
             <div class="skills-container">
-                <span class="skill-tag">PCB Design (KiCad, Altium)</span>
-                <span class="skill-tag">Circuit Design</span>
-                <span class="skill-tag">Microcontrollers (Arduino, ESP32)</span>
-                <span class="skill-tag">C++ / C</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">Embedded Systems</span>
-                <span class="skill-tag">Automation</span>
-                <span class="skill-tag">Control Systems (PID)</span>
-                <span class="skill-tag">Graphic Design</span>
-                <span class="skill-tag">Video Editing</span>
-                <span class="skill-tag">Event Management</span>
-                <span class="skill-tag">Team Leadership</span>
+                <span class="skill-tag">PCB Design (KiCad, Altium)</span><span class="skill-tag">Circuit Design</span>
+                <span class="skill-tag">Microcontrollers (Arduino, ESP32)</span><span class="skill-tag">C++ / C</span>
+                <span class="skill-tag">Python</span><span class="skill-tag">Embedded Systems</span>
+                <span class="skill-tag">Automation</span><span class="skill-tag">Control Systems (PID)</span>
+                <span class="skill-tag">Graphic Design</span><span class="skill-tag">Video Editing</span>
+                <span class="skill-tag">Event Management</span><span class="skill-tag">Team Leadership</span>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <footer id="contact">
+    <footer id="contact" class="hidden">
         <div class="container">
             <h2>Contact Me</h2>
             <p>I'm always excited to discuss new technologies, projects, or opportunities. Let's connect!</p>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/shahriar-kamal-62b90b344/" target="_blank" title="LinkedIn">in</a>
-                <a href="https://github.com/shahriar2203041" target="_blank" title="GitHub">gh</a>
-                <a href="https://www.facebook.com/shahriar.kamal.29/" target="_blank" title="Facebook">fb</a>
+                <a href="https://www.linkedin.com/in/shahriar-kamal-62b90b344/" target="_blank" title="LinkedIn"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxpbmplZGluIj48cGF0aCBkPSJNMTYgOGE2IDYgMCAwIDEgNiA2djdsLTQgMFYxNGMwLTEuMTEtLjI5LTIuMTYtMi41LTIuMTZDLjA5IDExLjg0IDggMTIuNTYgOCAxNHY3SDRWOGg0djEuNzVoLjA0Yy41Mi0uOTcgMS40OS0xLjc1IDIuOTYtMS43NUMxNC4xMSA4IDE2IDguOTYgMTYgOHoiLz48cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSIxMiIgeD0iMCIgeT0iOCIvPjxjaXJjbGUgY3g9IjIiIGN5PSIyIiByPSIyIi8+PC9zdmc+" alt="LinkedIn" style="height:24px;filter:invert(1);"></a>
+                <a href="https://github.com/shahriar2203041" target="_blank" title="GitHub"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1renJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWdpdGh1YiI+PHBhdGggZD0iTTkgMTljLTMgMS4zLTMtMi43LTMtMyAyLjUtMyAzLTEuNSAzLTEuNWwtMS41IDQuNUMyLjUgMTcuNSAyLjUgMTYgMy41IDE1YzAtMyAxLjUtMyAxLjUtMy0xLS41LTEuNS0zIDAtNCAuNS0xLjUgMS0xLjUgMS41LTMuNSAyLjUtMSA0IDEgNSAxIDMtMS4zIDEuNS0zIDEuNS0zLTUgMyA0IDIgNCAyLTItMy0xLjUtMy0xLjUtMy0zIDAgMC0xIDAtMyAuNS41LTItLjUgMy0yLjUtMy0zLTItMy0zLTItMS41LTQuNSIvPjwvc3ZnPg==" alt="GitHub" style="height:24px;filter:invert(1);transform:scale(1.2)"></a>
+                <a href="https://www.facebook.com/shahriar.kamal.29/" target="_blank" title="Facebook"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZhY2Vib29rIj48cGF0aCBkPSJNMTggMi1oLTN2M2gybC0uNSA0aC0xLjVWMTloLTRWMTJoLTJWOEgzVjVoM3YtM0ExLjQ2IDEuNDYgMCAwIDEgMTEuMDQgMmgyLjk2eiIvPjwvc3ZnPg==" alt="Facebook" style="height:24px;filter:invert(1);"></a>
             </div>
             <p style="margin-top: 2rem; color: var(--text-secondary);">© 2024 Shahriar Kamal. All Rights Reserved.</p>
         </div>
@@ -319,40 +349,30 @@
     </div>
 
     <script>
+    // --- Scroll Animation ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+            }
+        });
+    });
+    const hiddenElements = document.querySelectorAll('.hidden');
+    hiddenElements.forEach((el) => observer.observe(el));
+
     // --- Typing Motto Effect ---
     const typingText = document.getElementById('typing-text');
-    const mottos = [
-        "Electrical Engineering Undergraduate at KUET",
-        "Passionate About Embedded Systems & Automation",
-        "Building Innovative Engineering Solutions"
-    ];
-    let mottoIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-
+    const mottos = ["Electrical Engineering Undergraduate", "Embedded Systems & Automation Enthusiast", "Building Innovative Engineering Solutions"];
+    let mottoIndex = 0; let charIndex = 0; let isDeleting = false;
     function type() {
         const currentMotto = mottos[mottoIndex];
-        if (isDeleting) {
-            typingText.textContent = currentMotto.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            typingText.textContent = currentMotto.substring(0, charIndex + 1);
-            charIndex++;
-        }
-
-        if (!isDeleting && charIndex === currentMotto.length) {
-            isDeleting = true;
-            setTimeout(type, 2000); // Pause at end of word
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            mottoIndex = (mottoIndex + 1) % mottos.length;
-            setTimeout(type, 500);
-        } else {
-            setTimeout(type, isDeleting ? 50 : 100);
-        }
+        if (isDeleting) { typingText.textContent = currentMotto.substring(0, charIndex - 1); charIndex--; } 
+        else { typingText.textContent = currentMotto.substring(0, charIndex + 1); charIndex++; }
+        if (!isDeleting && charIndex === currentMotto.length) { isDeleting = true; setTimeout(type, 2000); } 
+        else if (isDeleting && charIndex === 0) { isDeleting = false; mottoIndex = (mottoIndex + 1) % mottos.length; setTimeout(type, 500); } 
+        else { setTimeout(type, isDeleting ? 50 : 100); }
     }
     document.addEventListener("DOMContentLoaded", type);
-
 
     // --- Modal Gallery ---
     const modal = document.getElementById('myModal');
@@ -361,58 +381,27 @@
     const prevBtn = document.querySelector('.prev');
     const nextBtn = document.querySelector('.next');
     const projectCards = document.querySelectorAll('.project-card');
-
-    let currentMedia = [];
-    let currentIndex = 0;
-
+    let currentMedia = []; let currentIndex = 0;
     function showMedia(index) {
-        modalContent.innerHTML = ''; // Clear previous content
+        modalContent.innerHTML = '';
         const mediaSrc = currentMedia[index];
         const mediaType = mediaSrc.endsWith('.mp4') ? 'video' : 'image';
-
         if (mediaType === 'video') {
             const video = document.createElement('video');
-            video.src = mediaSrc;
-            video.controls = true;
-            video.autoplay = true;
-            modalContent.appendChild(video);
-        } else {
-            const img = document.createElement('img');
-            img.src = mediaSrc;
-            modalContent.appendChild(img);
-        }
+            video.src = mediaSrc; video.controls = true; video.autoplay = true; modalContent.appendChild(video);
+        } else { const img = document.createElement('img'); img.src = mediaSrc; modalContent.appendChild(img); }
         currentIndex = index;
     }
-
     projectCards.forEach(card => {
         card.addEventListener('click', () => {
             const mediaSrcString = card.dataset.mediaSrc;
-            if (mediaSrcString) {
-                currentMedia = mediaSrcString.split(',');
-                showMedia(0);
-                modal.style.display = 'flex';
-            }
+            if (mediaSrcString) { currentMedia = mediaSrcString.split(','); showMedia(0); modal.style.display = 'flex'; }
         });
     });
-
     closeBtn.onclick = () => { modal.style.display = 'none'; modalContent.innerHTML = ''; }
     modal.onclick = (e) => { if (e.target === modal) { modal.style.display = 'none'; modalContent.innerHTML = ''; } }
-
-    nextBtn.onclick = () => {
-        const newIndex = (currentIndex + 1) % currentMedia.length;
-        showMedia(newIndex);
-    }
-
-    prevBtn.onclick = () => {
-        const newIndex = (currentIndex - 1 + currentMedia.length) % currentMedia.length;
-        showMedia(newIndex);
-    }
+    nextBtn.onclick = () => { showMedia((currentIndex + 1) % currentMedia.length); }
+    prevBtn.onclick = () => { showMedia((currentIndex - 1 + currentMedia.length) % currentMedia.length); }
     </script>
 </body>
 </html>
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Html
-IGNORE_WHEN_COPYING_END
