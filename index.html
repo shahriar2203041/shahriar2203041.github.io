@@ -7,9 +7,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
         :root {
-            --primary-color: #38bdf8; /* A vibrant sky blue */
-            --dark-bg: #111827; /* Dark blue-gray */
-            --card-bg: #1f2937; /* Lighter blue-gray */
+            --primary-color: #38bdf8;
+            --dark-bg: #111827;
+            --card-bg: #1f2937;
             --text-color: #e5e7eb;
             --text-secondary: #9ca3af;
             --border-color: #374151;
@@ -27,10 +27,10 @@
         h1 { font-size: 3.5rem; }
         h2 { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; text-transform: uppercase; letter-spacing: 2px; position: relative; }
         h2::after { content: ''; display: block; width: 80px; height: 4px; background: var(--primary-color); margin: 0.5rem auto 0; border-radius: 2px; }
-        section { padding: 5rem 0; overflow: hidden; }
+        section { padding: 5rem 0; overflow-x: hidden; }
         a { color: var(--primary-color); text-decoration: none; }
 
-        /* --- New Scroll Animation --- */
+        /* --- Scroll Animation --- */
         .hidden { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
         .show { opacity: 1; transform: translateY(0); }
 
@@ -42,14 +42,19 @@
         }
         .navbar .container { display: flex; justify-content: space-between; align-items: center; }
         .navbar .logo { font-size: 1.6rem; font-weight: 700; color: #fff; }
-        .navbar ul { display: flex; list-style: none; }
-        .navbar ul li a { color: var(--text-color); padding: 0.5rem 1rem; transition: color 0.3s; }
-        .navbar ul li a:hover { color: var(--primary-color); }
         
+        .nav-links { display: flex; list-style: none; align-items: center; }
+        .nav-links li a { color: var(--text-color); padding: 0.5rem 1rem; transition: color 0.3s; }
+        .nav-links li a:hover { color: var(--primary-color); }
+        
+        /* Hamburger Menu - Hidden on Desktop */
+        .hamburger { display: none; cursor: pointer; }
+        .hamburger .bar { display: block; width: 25px; height: 3px; margin: 5px auto; transition: all 0.3s ease-in-out; background-color: #fff; }
+
         /* --- Hero Section --- */
         .hero { 
-            height: 100vh; display: flex; align-items: center; text-align: center;
-            background: linear-gradient(135deg, #1f2937, #111827);
+            min-height: 100vh; display: flex; align-items: center; text-align: center;
+            background: linear-gradient(135deg, #1f2937, #111827); padding-top: 5rem;
         }
         .hero-content h1 { margin-bottom: 1rem; }
         .hero-content .motto { font-size: 1.5rem; font-weight: 300; color: var(--primary-color); margin-bottom: 2rem; height: 2.2em; }
@@ -63,89 +68,75 @@
         .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(56, 189, 248, 0.4); }
 
         /* --- Grid & Upgraded Cards --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
         .card {
             background: var(--card-bg); border-radius: 10px; overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s, box-shadow 0.3s;
             border: 1px solid var(--border-color);
         }
-        .card:hover { 
-            transform: translateY(-10px); 
-            box-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
-        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 0 30px rgba(56, 189, 248, 0.3); }
         .card-image { width: 100%; height: 220px; object-fit: cover; }
         .card-content { padding: 1.5rem; }
         .card-content h3 { margin-bottom: 0.5rem; color: var(--primary-color); }
 
-        /* --- Project Card Specifics --- */
         .project-card { cursor: pointer; }
-
-        /* --- Education Section --- */
         .education-item { border-left: 3px solid var(--primary-color); padding-left: 1.5rem; margin-bottom: 2rem; }
-        .education-item h3 { color: #fff; }
-        .education-item p { margin-bottom: 0.2rem; }
-
-        /* --- Skills Section --- */
         .skills-container { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
-        .skill-tag { background: var(--card-bg); padding: 0.7rem 1.2rem; border-radius: 20px; font-weight: 500; transition: background-color 0.3s; }
+        .skill-tag { background: var(--card-bg); padding: 0.7rem 1.2rem; border-radius: 20px; font-weight: 500; transition: background-color 0.3s, color 0.3s; }
         .skill-tag:hover { background-color: var(--primary-color); color: var(--dark-bg); }
 
         /* --- Modal Gallery --- */
-        .modal {
-            display: none; position: fixed; z-index: 2000; left: 0; top: 0;
-            width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
-            justify-content: center; align-items: center;
-        }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
         .modal-content { position: relative; max-width: 90%; max-height: 85vh; }
         .modal-content video, .modal-content img { width: auto; height: auto; max-width: 100%; max-height: 85vh; display: block; border-radius: 5px; }
         .close-btn { position: absolute; top: 15px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; }
-        .nav-arrow {
-            cursor: pointer; position: absolute; top: 50%; width: auto; margin-top: -22px;
-            padding: 16px; color: white; font-weight: bold; font-size: 2rem;
-            transition: 0.3s ease; user-select: none;
-        }
+        .nav-arrow { cursor: pointer; position: absolute; top: 50%; width: auto; margin-top: -22px; padding: 16px; color: white; font-weight: bold; font-size: 2rem; transition: 0.3s ease; user-select: none; }
         .prev { left: 10px; } .next { right: 10px; }
         .nav-arrow:hover { background-color: rgba(255,255,255,0.2); }
 
-        /* --- Contact Section (Upgraded with SVG Icons) --- */
+        /* --- Contact & Footer --- */
         #contact { text-align: center; }
-        .social-links a { 
-            display: inline-block;
-            margin: 0 1rem;
-            transition: transform 0.3s ease;
-        }
+        .social-links a { display: inline-block; margin: 0 1rem; transition: transform 0.3s ease; }
         .social-links a:hover { transform: translateY(-5px); }
-        .social-links svg {
-            width: 32px;
-            height: 32px;
-            fill: var(--text-secondary);
-            transition: fill 0.3s ease;
-        }
+        .social-links svg { width: 32px; height: 32px; fill: var(--text-secondary); transition: fill 0.3s ease; }
         .social-links a:hover svg { fill: var(--primary-color); }
 
         /* --- Back to Top Button --- */
-        .back-to-top {
-            position: fixed; bottom: 2rem; right: 2rem;
-            background: var(--primary-color); color: var(--dark-bg);
-            width: 50px; height: 50px; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 1.5rem; text-decoration: none;
-            opacity: 0; visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-        }
-        .back-to-top.show-btn {
-            opacity: 1; visibility: visible;
-        }
-        .back-to-top:hover {
-            transform: scale(1.1);
-        }
+        .back-to-top { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--primary-color); color: var(--dark-bg); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; text-decoration: none; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.3s; z-index: 1000; }
+        .back-to-top.show-btn { opacity: 1; visibility: visible; }
+        .back-to-top:hover { transform: scale(1.1); }
 
-        /* --- Responsive --- */
+        /* =================================== */
+        /* --- MOBILE RESPONSIVE STYLES --- */
+        /* =================================== */
         @media(max-width: 768px) {
-            h1 { font-size: 2.8rem; }
-            h2 { font-size: 2rem; }
-            .navbar { padding: 1rem; }
-            .navbar .container { flex-direction: column; gap: 1rem; }
+            .container { padding: 0 1rem; }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.8rem; }
+            section { padding: 4rem 0; }
+            
+            /* --- Hamburger Menu Logic --- */
+            .hamburger { display: block; z-index: 1001; }
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                flex-direction: column;
+                justify-content: center;
+                gap: 2rem;
+                background-color: var(--dark-bg);
+                width: 100%;
+                height: 100vh;
+                text-align: center;
+                transition: 0.3s;
+            }
+            .nav-links.active { left: 0; }
+            .nav-links li a { font-size: 1.5rem; }
+
+            /* Hamburger animation */
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
         }
     </style>
 </head>
@@ -155,7 +146,7 @@
     <nav class="navbar">
         <div class="container">
             <a href="#" class="logo">Shahriar Kamal</a>
-            <ul>
+            <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#projects">Projects</a></li>
@@ -163,6 +154,11 @@
                 <li><a href="#achievements">Achievements</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
     </nav>
 
@@ -170,143 +166,53 @@
     <header id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Shahriar Kamal</h1>
-                <p class="motto"><span id="typing-text"></span><span class="typing-cursor"></span></p>
-                <a href="#projects" class="btn">View My Projects</a>
-                <a href="#contact" class="btn">Contact Me</a>
+                <h1 class="hidden">Shahriar Kamal</h1>
+                <p class="motto hidden"><span id="typing-text"></span><span class="typing-cursor"></span></p>
+                <div class="hidden">
+                    <a href="#projects" class="btn">View My Projects</a>
+                    <a href="#contact" class="btn">Contact Me</a>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="hidden">
-        <div class="container">
-            <h2>About Me</h2>
-            <p style="text-align:center; max-width: 800px; margin: auto;">
-                Hello! I'm Shahriar Kamal, a second-year Electrical Engineering student at KUET. My journey is driven by a deep fascination with turning complex ideas into tangible, working devices. I thrive at the intersection of hardware and software—designing circuits, laying out custom PCBs, and writing the code that gives them intelligence. Beyond the lab, I apply the same 'builder' mindset to creating communities and leading projects, believing that great technology and great teams share the principles of clear vision and strong execution.
-            </p>
-        </div>
-    </section>
+    <!-- Content Sections (wrapped in a main tag for semantics) -->
+    <main>
+        <section id="about" class="hidden"><div class="container"><h2>About Me</h2><p style="text-align:center; max-width: 800px; margin: auto;">Hello! I'm Shahriar Kamal, a second-year Electrical Engineering student at KUET. My journey is driven by a deep fascination with turning complex ideas into tangible, working devices. I thrive at the intersection of hardware and software—designing circuits, laying out custom PCBs, and writing the code that gives them intelligence. Beyond the lab, I apply the same 'builder' mindset to creating communities and leading projects, believing that great technology and great teams share the principles of clear vision and strong execution.</p></div></section>
+        <section id="education" class="hidden"><div class="container"><h2>Education</h2><div class="education-item"><h3>Khulna University of Engineering & Technology (KUET)</h3><p><strong>Bachelor of Science in Electrical & Electronic Engineering</strong></p><p><em>Research Interests:</em> Machine Learning (ML), Computer Vision (CV), Deep Learning, Power Systems, Circuits, Embedded Systems.</p></div><div class="education-item"><h3>Notre Dame College</h3><p><strong>Higher Secondary Certificate (HSC), Science</strong> (GPA: 5.0 / 5.0)</p></div><div class="education-item"><h3>Chittagong Cantonment English School and College</h3><p><strong>Secondary School Certificate (SSC), Science</strong> (GPA: 5.0 / 5.0)</p></div></div></section>
+        <section id="projects" class="hidden"><div class="container"><h2>Projects</h2><div class="grid"><div class="project-card card" data-media-type="image" data-media-src="images/drone.jpg"><img src="images/drone.jpg" alt="Autonomous Drone" class="card-image"><div class="card-content"><h3>Autonomous Sensor-Embedded Drone</h3><p>Custom-built quadcopter for stable flight and data acquisition, focusing on system integration and control.</p></div></div><div class="project-card card" data-media-type="image" data-media-src="images/lfr.jpg"><img src="images/lfr.jpg" alt="Line Follower Robot" class="card-image"><div class="card-content"><h3>Line Follower Robot</h3><p>An intelligent robot on a custom PCB designed to autonomously navigate a path using sensor feedback.</p></div></div><div class="project-card card" data-media-type="video" data-media-src="images/tinkercad-video.mp4"><img src="images/tinkercad-thumbnail.jpg" alt="Tinkercad Project Thumbnail" class="card-image"><div class="card-content"><h3>Tinkercad Circuit Simulation</h3><p>Complex circuit simulations and virtual prototyping of electronic systems using Tinkercad.</p></div></div><div class="project-card card" data-media-type="image" data-media-src="images/c-project-1.jpg,images/c-project-2.jpg,images/c-project-3.jpg"><img src="images/c-project-1.jpg" alt="C Programming Project" class="card-image"><div class="card-content"><h3>C Programming Projects</h3><p>Various projects developed in C, demonstrating fundamental programming concepts and problem-solving skills.</p></div></div><div class="project-card card" data-media-type="image" data-media-src="images/pcb-1.jpg,images/pcb-2.jpg,images/pcb-3.jpg"><img src="images/pcb-1.jpg" alt="PCB Design" class="card-image"><div class="card-content"><h3>Custom PCB Design</h3><p>Designed multi-layer PCBs from schematic to Gerber files for various automation and electronic projects.</p></div></div><div class="project-card card" data-media-type="image" data-media-src="images/pesticide-1.jpg,images/pesticide-2.jpg,images/pesticide-3.jpg"><img src="images/pesticide-1.jpg" alt="Smart Pesticide System" class="card-image"><div class="card-content"><h3>Smart Pesticide Spraying System</h3><p>An IoT-based concept for targeted pesticide delivery, designed to improve efficiency and reduce waste.</p></div></div></div></div></section>
+        <section id="experience" class="hidden"><div class="container"><h2>Experience</h2><div class="grid"><div class="card"><img src="images/embedded-innovators.jpg" alt="Embedded Innovators" class="card-image"><div class="card-content"><h3>Embedded Systems Trainee</h3><p><strong>Embedded Innovators KUET</strong></p><p>Exploring new technologies, enhancing my skills, and working with an incredible team on embedded systems projects.</p></div></div><div class="card"><img src="images/eee-makers-hub.jpg" alt="EEE Makers Hub" class="card-image"><div class="card-content"><h3>Junior Executive</h3><p><strong>EEE Makers Hub, KUET</strong></p><p>Contributing to engineering projects, technical discussions, and knowledge-sharing initiatives in a collaborative environment.</p></div></div><div class="card"><img src="images/rotaract.jpg" alt="Rotaract Club" class="card-image"><div class="card-content"><h3>Vice President</h3><p><strong>Rotaract Club of Notre Dame College</strong></p><p>Led the organization of national-level competitions, speaker sessions, and workshops, managing teams and event logistics.</p></div></div><div class="card"><img src="images/poridhi.jpg" alt="Poridhir Baire" class="card-image"><div class="card-content"><h3>Co-Founder</h3><p><strong>পরিধির বাইরে (Beyond the Horizon)</strong></p><p>Founded and grew a large educational community, organizing events with international participation.</p></div></div></div></div></section>
+        <section id="achievements" class="hidden"><div class="container"><h2>Achievements</h2><div style="text-align: center; margin-bottom: 2rem;"><img src="images/achievement-award.jpg" alt="Achievements" style="max-width: 150px; border-radius: 50%;"></div><div class="grid"><div class="card"><div class="card-content"><h3>2nd Prize</h3><p>Project Presentation at Science Freak</p></div></div><div class="card"><div class="card-content"><h3>2nd Runner-up</h3><p>Hassan Ali Govt. High School Science Club</p></div></div><div class="card"><div class="card-content"><h3>Best Volunteer</h3><p>Rotaract Club of Notre Dame College</p></div></div><div class="card"><div class="card-content"><h3>Campus Coordinator</h3><p>Learn-E Platform</p></div></div><div class="card"><div class="card-content"><h3>GK Champion</h3><p>Notre Dame College (NDC)</p></div></div><div class="card"><div class="card-content"><h3>The IQ Master of NDC</h3><p>Notre Dame College (NDC)</p></div></div></div></div></section>
+        <section id="skills" class="hidden"><div class="container"><h2>Skills</h2><div class="skills-container"><span class="skill-tag">PCB Design (KiCad, Altium)</span><span class="skill-tag">Circuit Design</span><span class="skill-tag">Microcontrollers (Arduino, ESP32)</span><span class="skill-tag">C++ / C</span><span class="skill-tag">Python</span><span class="skill-tag">Embedded Systems</span><span class="skill-tag">Automation</span><span class="skill-tag">Control Systems (PID)</span><span class="skill-tag">Graphic Design</span><span class="skill-tag">Video Editing</span><span class="skill-tag">Event Management</span><span class="skill-tag">Team Leadership</span></div></div></section>
+    </main>
     
-    <!-- Education Section -->
-    <section id="education" class="hidden">
-        <div class="container">
-            <h2>Education</h2>
-            <div class="education-item">
-                <h3>Khulna University of Engineering & Technology (KUET)</h3>
-                <p><strong>Bachelor of Science in Electrical & Electronic Engineering</strong></p>
-                <p><em>Research Interests:</em> Machine Learning (ML), Computer Vision (CV), Deep Learning, Power Systems, Circuits, Embedded Systems.</p>
-            </div>
-            <div class="education-item">
-                <h3>Notre Dame College</h3>
-                <p><strong>Higher Secondary Certificate (HSC), Science</strong> (GPA: 5.0 / 5.0)</p>
-            </div>
-             <div class="education-item">
-                <h3>Chittagong Cantonment English School and College</h3>
-                <p><strong>Secondary School Certificate (SSC), Science</strong> (GPA: 5.0 / 5.0)</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="hidden">
-        <div class="container">
-            <h2>Projects</h2>
-            <div class="grid">
-                <div class="project-card card" data-media-type="image" data-media-src="images/drone.jpg">
-                    <img src="images/drone.jpg" alt="Autonomous Drone" class="card-image"><div class="card-content"><h3>Autonomous Sensor-Embedded Drone</h3><p>Custom-built quadcopter for stable flight and data acquisition, focusing on system integration and control.</p></div>
-                </div>
-                <div class="project-card card" data-media-type="image" data-media-src="images/lfr.jpg">
-                    <img src="images/lfr.jpg" alt="Line Follower Robot" class="card-image"><div class="card-content"><h3>Line Follower Robot</h3><p>An intelligent robot on a custom PCB designed to autonomously navigate a path using sensor feedback.</p></div>
-                </div>
-                <div class="project-card card" data-media-type="video" data-media-src="images/tinkercad-video.mp4">
-                    <img src="images/tinkercad-thumbnail.jpg" alt="Tinkercad Project Thumbnail" class="card-image"><div class="card-content"><h3>Tinkercad Circuit Simulation</h3><p>Complex circuit simulations and virtual prototyping of electronic systems using Tinkercad.</p></div>
-                </div>
-                <div class="project-card card" data-media-type="image" data-media-src="images/c-project-1.jpg,images/c-project-2.jpg,images/c-project-3.jpg">
-                    <img src="images/c-project-1.jpg" alt="C Programming Project" class="card-image"><div class="card-content"><h3>C Programming Projects</h3><p>Various projects developed in C, demonstrating fundamental programming concepts and problem-solving skills.</p></div>
-                </div>
-                <div class="project-card card" data-media-type="image" data-media-src="images/pcb-1.jpg,images/pcb-2.jpg,images/pcb-3.jpg">
-                    <img src="images/pcb-1.jpg" alt="PCB Design" class="card-image"><div class="card-content"><h3>Custom PCB Design</h3><p>Designed multi-layer PCBs from schematic to Gerber files for various automation and electronic projects.</p></div>
-                </div>
-                <div class="project-card card" data-media-type="image" data-media-src="images/pesticide-1.jpg,images/pesticide-2.jpg,images/pesticide-3.jpg">
-                    <img src="images/pesticide-1.jpg" alt="Smart Pesticide System" class="card-image"><div class="card-content"><h3>Smart Pesticide Spraying System</h3><p>An IoT-based concept for targeted pesticide delivery, designed to improve efficiency and reduce waste.</p></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="hidden">
-        <div class="container">
-            <h2>Experience</h2>
-            <div class="grid">
-                <div class="card"><img src="images/embedded-innovators.jpg" alt="Embedded Innovators" class="card-image"><div class="card-content"><h3>Embedded Systems Trainee</h3><p><strong>Embedded Innovators KUET</strong></p><p>Exploring new technologies, enhancing my skills, and working with an incredible team on embedded systems projects.</p></div></div>
-                <div class="card"><img src="images/eee-makers-hub.jpg" alt="EEE Makers Hub" class="card-image"><div class="card-content"><h3>Junior Executive</h3><p><strong>EEE Makers Hub, KUET</strong></p><p>Contributing to engineering projects, technical discussions, and knowledge-sharing initiatives in a collaborative environment.</p></div></div>
-                <div class="card"><img src="images/rotaract.jpg" alt="Rotaract Club" class="card-image"><div class="card-content"><h3>Vice President</h3><p><strong>Rotaract Club of Notre Dame College</strong></p><p>Led the organization of national-level competitions, speaker sessions, and workshops, managing teams and event logistics.</p></div></div>
-                <div class="card"><img src="images/poridhi.jpg" alt="Poridhir Baire" class="card-image"><div class="card-content"><h3>Co-Founder</h3><p><strong>পরিধির বাইরে (Beyond the Horizon)</strong></p><p>Founded and grew a large educational community, organizing events with international participation.</p></div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Achievements Section -->
-    <section id="achievements" class="hidden">
-        <div class="container">
-            <h2>Achievements</h2>
-            <div style="text-align: center; margin-bottom: 2rem;"><img src="images/achievement-award.jpg" alt="Achievements" style="max-width: 150px; border-radius: 50%;"></div>
-            <div class="grid">
-                <div class="card"><div class="card-content"><h3>2nd Prize</h3><p>Project Presentation at Science Freak</p></div></div>
-                <div class="card"><div class="card-content"><h3>2nd Runner-up</h3><p>Hassan Ali Govt. High School Science Club</p></div></div>
-                <div class="card"><div class="card-content"><h3>Best Volunteer</h3><p>Rotaract Club of Notre Dame College</p></div></div>
-                <div class="card"><div class="card-content"><h3>Campus Coordinator</h3><p>Learn-E Platform</p></div></div>
-                <div class="card"><div class="card-content"><h3>GK Champion</h3><p>Notre Dame College (NDC)</p></div></div>
-                <div class="card"><div class="card-content"><h3>The IQ Master of NDC</h3><p>Notre Dame College (NDC)</p></div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="hidden">
-        <div class="container">
-            <h2>Skills</h2>
-            <div class="skills-container">
-                <span class="skill-tag">PCB Design (KiCad, Altium)</span><span class="skill-tag">Circuit Design</span><span class="skill-tag">Microcontrollers (Arduino, ESP32)</span><span class="skill-tag">C++ / C</span><span class="skill-tag">Python</span><span class="skill-tag">Embedded Systems</span><span class="skill-tag">Automation</span><span class="skill-tag">Control Systems (PID)</span><span class="skill-tag">Graphic Design</span><span class="skill-tag">Video Editing</span><span class="skill-tag">Event Management</span><span class="skill-tag">Team Leadership</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <footer id="contact" class="hidden">
-        <div class="container">
-            <h2>Contact Me</h2>
-            <p>I'm always excited to discuss new technologies, projects, or opportunities. Let's connect!</p>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/shahriar-kamal-62b90b344/" target="_blank" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
-                <a href="https://github.com/shahriar2203041" target="_blank" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
-                <a href="https://www.facebook.com/shahriar.kamal.29/" target="_blank" title="Facebook"><svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg></a>
-            </div>
-            <p style="margin-top: 2rem; color: var(--text-secondary);">© 2024 Shahriar Kamal. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
+    <footer id="contact" class="hidden"><div class="container"><h2>Contact Me</h2><p>I'm always excited to discuss new technologies, projects, or opportunities. Let's connect!</p><div class="social-links"><a href="https://www.linkedin.com/in/shahriar-kamal-62b90b344/" target="_blank" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a><a href="https://github.com/shahriar2203041" target="_blank" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a><a href="https://www.facebook.com/shahriar.kamal.29/" target="_blank" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg></a></div><p style="margin-top: 2rem; color: var(--text-secondary);">© 2024 Shahriar Kamal. All Rights Reserved.</p></div></footer>
     <a href="#" class="back-to-top">⇧</a>
-    
-    <!-- Modal Gallery -->
     <div id="myModal" class="modal"><span class="close-btn">×</span><span class="nav-arrow prev">❮</span><div class="modal-content" id="modal-media-content"></div><span class="nav-arrow next">❯</span></div>
 
     <script>
+    // --- Mobile Navigation (Hamburger Menu) ---
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    const links = document.querySelectorAll(".nav-links li");
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle("active");
+        hamburger.classList.toggle("active");
+    });
+
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove("active");
+            hamburger.classList.remove("active");
+        });
+    });
+
     // --- Typing Motto Effect ---
     const typingText = document.getElementById('typing-text');
     const mottos = ["Electrical Engineering Undergraduate at KUET", "Passionate About Embedded Systems & Automation", "Building Innovative Engineering Solutions"];
     let mottoIndex = 0, charIndex = 0, isDeleting = false;
-    function type() {
-        const currentMotto = mottos[mottoIndex];
-        if (isDeleting) { typingText.textContent = currentMotto.substring(0, charIndex--);
-        } else { typingText.textContent = currentMotto.substring(0, charIndex++); }
-        if (!isDeleting && charIndex === currentMotto.length) { isDeleting = true; setTimeout(type, 2000);
-        } else if (isDeleting && charIndex === 0) { isDeleting = false; mottoIndex = (mottoIndex + 1) % mottos.length; setTimeout(type, 500);
-        } else { setTimeout(type, isDeleting ? 50 : 100); }
-    }
+    function type() { if(!typingText) return; const currentMotto = mottos[mottoIndex]; if (isDeleting) { typingText.textContent = currentMotto.substring(0, charIndex--); } else { typingText.textContent = currentMotto.substring(0, charIndex++); } if (!isDeleting && charIndex === currentMotto.length) { isDeleting = true; setTimeout(type, 2000); } else if (isDeleting && charIndex === 0) { isDeleting = false; mottoIndex = (mottoIndex + 1) % mottos.length; setTimeout(type, 500); } else { setTimeout(type, isDeleting ? 50 : 100); } }
     document.addEventListener("DOMContentLoaded", type);
 
     // --- Modal Gallery ---
@@ -314,38 +220,19 @@
     closeBtn = document.querySelector('.close-btn'), prevBtn = document.querySelector('.prev'),
     nextBtn = document.querySelector('.next'), projectCards = document.querySelectorAll('.project-card');
     let currentMedia = [], currentIndex = 0;
-    function showMedia(index) {
-        modalContent.innerHTML = ''; const mediaSrc = currentMedia[index];
-        const mediaType = mediaSrc.endsWith('.mp4') ? 'video' : 'image';
-        if (mediaType === 'video') { const video = document.createElement('video'); video.src = mediaSrc; video.controls = true; video.autoplay = true; modalContent.appendChild(video);
-        } else { const img = document.createElement('img'); img.src = mediaSrc; modalContent.appendChild(img); }
-        currentIndex = index;
-    }
-    projectCards.forEach(card => card.addEventListener('click', () => {
-        const mediaSrcString = card.dataset.mediaSrc;
-        if (mediaSrcString) { currentMedia = mediaSrcString.split(','); showMedia(0); modal.style.display = 'flex'; }
-    }));
-    closeBtn.onclick = () => { modal.style.display = 'none'; modalContent.innerHTML = ''; };
-    modal.onclick = (e) => { if (e.target === modal) { modal.style.display = 'none'; modalContent.innerHTML = ''; } };
-    nextBtn.onclick = () => { showMedia((currentIndex + 1) % currentMedia.length); };
-    prevBtn.onclick = () => { showMedia((currentIndex - 1 + currentMedia.length) % currentMedia.length); };
+    function showMedia(index) { modalContent.innerHTML = ''; const mediaSrc = currentMedia[index]; const mediaType = mediaSrc.endsWith('.mp4') ? 'video' : 'image'; if (mediaType === 'video') { const video = document.createElement('video'); video.src = mediaSrc; video.controls = true; video.autoplay = true; modalContent.appendChild(video); } else { const img = document.createElement('img'); img.src = mediaSrc; modalContent.appendChild(img); } currentIndex = index; }
+    projectCards.forEach(card => card.addEventListener('click', () => { const mediaSrcString = card.dataset.mediaSrc; if (mediaSrcString) { currentMedia = mediaSrcString.split(','); showMedia(0); modal.style.display = 'flex'; } }));
+    closeBtn.onclick = () => { modal.style.display = 'none'; modalContent.innerHTML = ''; }; modal.onclick = (e) => { if (e.target === modal) { modal.style.display = 'none'; modalContent.innerHTML = ''; } };
+    nextBtn.onclick = () => { showMedia((currentIndex + 1) % currentMedia.length); }; prevBtn.onclick = () => { showMedia((currentIndex - 1 + currentMedia.length) % currentMedia.length); };
 
     // --- Scroll Animations ---
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) { entry.target.classList.add('show');
-            } else { entry.target.classList.remove('show'); }
-        });
-    });
+    const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('show'); } }); }, { threshold: 0.1 });
     const hiddenElements = document.querySelectorAll('.hidden');
     hiddenElements.forEach((el) => observer.observe(el));
 
     // --- Back to Top Button ---
     const backToTopBtn = document.querySelector('.back-to-top');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) { backToTopBtn.classList.add('show-btn');
-        } else { backToTopBtn.classList.remove('show-btn'); }
-    });
+    window.addEventListener('scroll', () => { if (window.scrollY > 300) { backToTopBtn.classList.add('show-btn'); } else { backToTopBtn.classList.remove('show-btn'); } });
     </script>
 </body>
 </html>
